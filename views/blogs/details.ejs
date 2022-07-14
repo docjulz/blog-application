@@ -1,0 +1,37 @@
+<html lang="en">
+<%- include("../partials/head.ejs") %>
+
+<body>
+  <%- include("../partials/nav.ejs") %>
+
+  <div class="details content">
+    <h2><%= blog.title %></h2>
+    <div class="content">
+      <p><%= blog.body %></p>
+    </div>
+    <a class="delete" data-doc="<%= blog._id %>">
+      <img src="/trashcan.svg" alt="trashcan">
+    </a>
+  </div>
+
+  <%- include("../partials/footer.ejs") %>
+
+  <script>
+    const trashcan = document.querySelector('a.delete');
+    trashcan.addEventListener('click', (e) => {
+      const endpoint = `/blogs/${trashcan.dataset.doc}`;  // store the event in endpoint and set to template string
+      // set to the dataset data-doc as the id
+      fetch(endpoint, {
+        method: 'DELETE',
+      })
+      // when json data returned back.  this is response. need response.json method to return
+      // method and pass json in actual javascript
+      .then(response => response.json())
+      // this data javascript
+      .then(data => window.location.href = data.redirect)
+      .catch(err => console.log(err));
+    });
+    
+  </script>
+</body>
+</html>

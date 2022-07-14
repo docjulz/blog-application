@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head.ejs') %>
+<body>
+    <!-- EJS Formats -->
+    
+
+    <%- include('../partials/nav.ejs') %>
+   
+    <div class="blogs content">
+        <h2>All Blog Content</h2>
+
+        <% if(blogs.length >0) { %>
+            <% blogs.forEach(blog => { %>
+                <!-- Surround the title and snippet with anchor to dynamic variable id -->
+            <a href="/blogs/<%= blog._id %>" class="single">    
+                <h3 class="title"><%= blog.title %></h3>
+                <p class="snippet"><%= blog.snippet %></p>
+            </a>
+            <%})%>
+        <% } else {%> 
+            <p>No Content in Blog</p>   
+        <% } %>
+    </div>
+    
+</body>
+<%- include ('../partials/footer.ejs') %> 
+</html>
+
+<!-- 
+The process of using EJS to pass values through to files is done on the 
+server and is known as "Server Side Rendering".
+EJS Templates are processes through the EJS view engine on the server.
+-->
